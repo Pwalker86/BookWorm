@@ -9,18 +9,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final String[] maxResultsSelection = new String[1];
+        TextView noConnectionView = (TextView) findViewById(R.id.no_connection_view);
+        if (!QueryUtils.checkConnectivity(this)) {
+            noConnectionView.setVisibility(View.VISIBLE);
+        } else {
+            noConnectionView.setVisibility(View.GONE);
+        }
 
+        final String[] maxResultsSelection = new String[1];
+        final EditText searchBox = (EditText) findViewById(R.id.search_box);
+        final Button button = (Button) findViewById(R.id.search_button);
         Spinner spinner = (Spinner) findViewById(R.id.max_results_box);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.max_results_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -28,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                maxResultsSelection[0] = adapterView.getSelectedItem().toString();
+                if (Objects.equals(adapterView.getSelectedItem().toString(), "Max Results…")) {
+                    button.setEnabled(false);
+                } else {
+                    maxResultsSelection[0] = adapterView.getSelectedItem().toString();
+                    button.setEnabled(true);
+                }
             }
 
             @Override
@@ -36,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        final EditText searchBox = (EditText) findViewById(R.id.search_box);
-        Button button = (Button) findViewById(R.id.search_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

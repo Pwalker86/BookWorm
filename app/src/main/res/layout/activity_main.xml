@@ -19,13 +19,13 @@
         tools:text="Search..." />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@id/search_box"
-        android:layout_toLeftOf="@id/max_results_box"
-        android:gravity="center"
-        android:labelFor="@id/max_results_box"
-        android:text="@string/max_results_string" />
+        android:id="@+id/no_connection_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/search_box"
+        android:text="@string/no_connection_text"
+        android:textAlignment="center" />
+
 
     <Spinner
         android:id="@+id/max_results_box"
@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/max_results_box"
         android:layout_centerHorizontal="true"
+        android:enabled="false"
         android:text="@string/search_text" />
 
 </RelativeLayout>

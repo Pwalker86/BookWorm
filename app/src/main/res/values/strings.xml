@@ -2,8 +2,10 @@
     <string name="app_name">BookWorm</string>
     <string name="search_text">Search</string>
     <string name="max_results_string">Max Results:</string>
+    <string name="no_connection_text">No Connection. Please Try Again</string>
 
     <string-array name="max_results_array">
+        <item>Max Results…</item>
         <item>5</item>
         <item>10</item>
         <item>15</item>
