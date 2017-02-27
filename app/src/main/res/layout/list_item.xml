@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,12 +15,23 @@
             android:id="@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Cool Book Name"/>
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Cool Book Name" />
 
         <TextView
             android:id="@+id/author_view"
+            android:textStyle="italic"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Cool Author" />
+
+        <TextView
+            android:id="@+id/description_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="Cool Description" />
     </LinearLayout>
 </LinearLayout>

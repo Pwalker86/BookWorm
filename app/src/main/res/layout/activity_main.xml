@@ -6,15 +6,41 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.bookworm.MainActivity">
 
-    <ListView
-        android:id="@+id/list_container"
+
+    <EditText
+        android:id="@+id/search_box"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textAlignment="center"
+        tools:text="Search..." />
 
     <TextView
-        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_below="@id/search_box"
+        android:layout_toLeftOf="@id/max_results_box"
+        android:gravity="center"
+        android:labelFor="@id/max_results_box"
+        android:text="@string/max_results_string" />
+
+    <Spinner
+        android:id="@+id/max_results_box"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/search_box"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@id/max_results_box"
+        android:layout_centerHorizontal="true"
+        android:text="@string/search_text" />
+
 </RelativeLayout>
