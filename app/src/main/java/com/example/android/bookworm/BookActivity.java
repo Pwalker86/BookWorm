@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,13 +48,23 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<A
     public void onLoadFinished(android.support.v4.content.Loader<ArrayList<Book>> loader, ArrayList<Book> data) {
         ProgressBar loadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
-        bookAdapter = new BookAdapter(BookActivity.this, data);
-        ListView listView = (ListView) findViewById(R.id.list_container);
-        listView.setAdapter(bookAdapter);
+        TextView emptyView = (TextView) findViewById(R.id.empty_view);
+
+        if (data.size() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+            bookAdapter = new BookAdapter(BookActivity.this, data);
+            ListView listView = (ListView) findViewById(R.id.list_container);
+            listView.setAdapter(bookAdapter);
+        }
+
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<ArrayList<Book>> loader) {
-        bookAdapter.clear();
+        if (bookAdapter != null) {
+            bookAdapter.clear();
+        }
     }
 }

@@ -84,32 +84,38 @@ class QueryUtils {
         ArrayList<Book> list = new ArrayList<>();
         try {
             baseJsonResponse = new JSONObject(jsonResponse);
-            JSONArray bookArray = baseJsonResponse.getJSONArray("items");
-            for (int i = 0; i < bookArray.length(); i++) {
-                String title = "";
-                String description = "";
-                ArrayList<String> authors = new ArrayList<>();
+            JSONArray bookArray = null;
+            if (baseJsonResponse.has("items")) {
+                bookArray = baseJsonResponse.getJSONArray("items");
+            }
 
-                JSONObject itemDetails = bookArray.getJSONObject(i);
-                JSONObject volumeInfo = itemDetails.getJSONObject("volumeInfo");
-                title = volumeInfo.getString("title");
+            if (bookArray != null) {
+                for (int i = 0; i < bookArray.length(); i++) {
+                    String title;
+                    String description;
+                    ArrayList<String> authors = new ArrayList<>();
 
-                if (volumeInfo.has("description")) {
-                    description = volumeInfo.getString("description");
-                } else {
-                    description = "None";
-                }
+                    JSONObject itemDetails = bookArray.getJSONObject(i);
+                    JSONObject volumeInfo = itemDetails.getJSONObject("volumeInfo");
+                    title = volumeInfo.getString("title");
 
-                if (volumeInfo.has("authors")) {
-                    JSONArray authorArray = volumeInfo.getJSONArray("authors");
-                    for (int x = 0; x < authorArray.length(); x++) {
-                        authors.add(authorArray.getString(x));
+                    if (volumeInfo.has("description")) {
+                        description = volumeInfo.getString("description");
+                    } else {
+                        description = "None";
                     }
-                } else {
-                    authors.add("None");
-                }
 
-                list.add(new Book(title, authors, description));
+                    if (volumeInfo.has("authors")) {
+                        JSONArray authorArray = volumeInfo.getJSONArray("authors");
+                        for (int x = 0; x < authorArray.length(); x++) {
+                            authors.add(authorArray.getString(x));
+                        }
+                    } else {
+                        authors.add("None");
+                    }
+
+                    list.add(new Book(title, authors, description));
+                }
             }
 
         } catch (JSONException e) {
